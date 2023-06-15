@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
+  OnInit,
   inject,
 } from '@angular/core';
 import {
@@ -15,7 +17,15 @@ import {
 import { PostService } from './services/post.service';
 import { Post, PostItem } from './services/post.interface';
 import { FormControl } from '@angular/forms';
-import { debounceTime, filter, of, switchMap, tap } from 'rxjs';
+import {
+  Subject,
+  debounceTime,
+  filter,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +33,7 @@ import { debounceTime, filter, of, switchMap, tap } from 'rxjs';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   public faThumbsUp = faThumbsUp;
   public faComment = faComment;
   public faAngleLeft = faAngleLeft;
@@ -36,15 +46,20 @@ export class AppComponent {
   public findPost: FormControl = new FormControl();
   public newPost: FormControl = new FormControl();
   public content!: string;
+  public destroy$: Subject<boolean> = new Subject<boolean>();
 
   public searchResults: Post[] = [];
   public createPostModal = false;
 
-  posts!: Post[];
+  public posts!: Post[];
+
   public ngOnInit(): void {
-    this.postService.getPosts().subscribe((resp) => {
-      this.posts = resp;
-    });
+    this.postService
+      .getPosts()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((resp) => {
+        this.posts = resp;
+      });
     this.findPost.valueChanges
       .pipe(
         debounceTime(300),
@@ -54,7 +69,8 @@ export class AppComponent {
             this._cdr.markForCheck();
           }
         }),
-        filter((value) => value.length > 2)
+        filter((value) => value.length > 2),
+        takeUntil(this.destroy$)
       )
       .subscribe((value) => {
         this.searchResults = this.posts.filter((item) =>
@@ -65,6 +81,11 @@ export class AppComponent {
           ? (this.content = 'searchResultsField')
           : (this.content = 'noResultsFound');
       });
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   public onCommentClick(item: PostItem): void {
