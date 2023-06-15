@@ -42,7 +42,6 @@ export class AppComponent {
 
   posts!: Post[];
   public ngOnInit(): void {
-    console.log(this.content);
     this.postService.getPosts().subscribe((resp) => {
       this.posts = resp;
     });
