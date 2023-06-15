@@ -15,6 +15,7 @@
   <div [ngSwitch]="content">
     <ng-container *ngSwitchDefault>
       <ul>
+        <!-- <cdk-virtual-scroll-viewport appendOnly itemSize="7"> -->
         <ng-container *ngFor="let post of posts">
           <li>
             <h3>
@@ -62,6 +63,7 @@
             </div>
           </li>
         </ng-container>
+        <!-- </cdk-virtual-scroll-viewport> -->
       </ul>
     </ng-container>
     <ng-container *ngSwitchCase="'searchResultsField'">
