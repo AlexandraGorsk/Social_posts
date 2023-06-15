@@ -1,4 +1,4 @@
-<h3>Welcome!</h3>
+<h2>Welcome!</h2>
 <div class="content">
   <div class="search">
     <input
@@ -8,6 +8,9 @@
       class="find__input"
     />
     <fa-icon [icon]="faSearch"></fa-icon>
+    <button (click)="openCreatePostModal()" class="create__post">
+      Create your post
+    </button>
   </div>
 
   <ul *ngIf="!searchResults.length; else searchResultsField">
@@ -64,9 +67,26 @@
       <li>
         <p>
           <span class="name">{{ result.name }} {{ result.surname }}</span> said:
-          <span class="post"> {{ result.post.text }}</span>
+          <span class="post">
+            {{ result.post.text }}
+            <span class="date">({{ result.post.time | date }})</span>
+          </span>
         </p>
       </li>
     </ul>
   </ng-template>
+</div>
+<div class="overlay" [class.hidden]="!createPostModal"></div>
+<div *ngIf="createPostModal" class="create__madal">
+  <div class="content">
+    <h2>Create your post</h2>
+    <div>
+      <textarea cols="30" rows="10" [formControl]="newPost"></textarea>
+      <p *ngIf="newPost.errors?.['emptyField']" class="error">
+        Your post should't be empty
+      </p>
+    </div>
+
+    <button (click)="onPostButton()">Post</button>
+  </div>
 </div>

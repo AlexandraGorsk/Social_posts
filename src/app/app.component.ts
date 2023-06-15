@@ -32,7 +32,10 @@ export class AppComponent {
   private _cdr = inject(ChangeDetectorRef);
   public comment: FormControl = new FormControl();
   public findPost: FormControl = new FormControl();
+  public newPost: FormControl = new FormControl();
+
   public searchResults: Post[] = [];
+  public createPostModal = false;
 
   posts!: Post[];
   public ngOnInit(): void {
@@ -99,6 +102,35 @@ export class AppComponent {
         });
         this.comment.reset();
       }
+    }
+  }
+
+  public openCreatePostModal(): void {
+    this.createPostModal = true;
+  }
+
+  public onPostButton(): void {
+    const postText = this.newPost.value;
+    if (!postText) {
+      this.newPost.setErrors({ emptyField: true });
+    } else {
+      const date = Date.now().toString();
+      const postObj = {
+        id: this.posts.length,
+        name: 'My Name',
+        surname: 'My Surname',
+        post: {
+          text: postText,
+          likes: 0,
+          liked: false,
+          time: date,
+          comments: [],
+        },
+      };
+      this.posts = [postObj, ...this.posts];
+      this._cdr.markForCheck;
+      this.newPost.reset();
+      this.createPostModal = false;
     }
   }
 }
