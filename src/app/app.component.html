@@ -12,73 +12,81 @@
       Create your post
     </button>
   </div>
-
-  <ul *ngIf="!searchResults.length; else searchResultsField">
-    <ng-container *ngFor="let post of posts">
-      <li>
-        <h3>
-          {{ post.name }} {{ post.surname }}
-          <span class="date">{{ post.post.time | date : "fullDate" }}</span>
-        </h3>
-        <p class="post__text">{{ post.post.text }}</p>
-        <div class="actions">
-          <div class="likes">
-            <fa-icon
-              [class.liked]="post.post.liked"
-              [icon]="faThumbsUp"
-              (click)="onLike(post.post)"
-            ></fa-icon>
-            <p class="amount">{{ post.post.likes }}</p>
-          </div>
-          <div class="comments">
-            <fa-icon
-              [icon]="faComment"
-              (click)="onCommentClick(post.post)"
-            ></fa-icon>
-            <p class="amount">{{ post.post.comments.length }}</p>
-          </div>
-        </div>
-        <div class="comments" [class.hidden]="!post.post.commentsIsOpen">
-          <ul>
-            <ng-container *ngFor="let comment of post.post.comments">
-              <li>
-                <p class="author">{{ comment.name }}</p>
-                <p class="comment">{{ comment.text }}</p>
-              </li>
-            </ng-container>
-            <ng-container *ngIf="post.commentInputIsShown">
-              <input
-                type="text"
-                [formControl]="comment"
-                placeholder="Start typing..."
-              />
-              <p *ngIf="comment.errors?.['emptyField']" class="error">
-                Type Something
-              </p></ng-container
-            >
-          </ul>
-          <button (click)="onLeaveComment(post)">Leave a comment</button>
-        </div>
-      </li>
+  <div [ngSwitch]="content">
+    <ng-container *ngSwitchDefault>
+      <ul>
+        <ng-container *ngFor="let post of posts">
+          <li>
+            <h3>
+              {{ post.name }} {{ post.surname }}
+              <span class="date">{{ post.post.time | date : "fullDate" }}</span>
+            </h3>
+            <p class="post__text">{{ post.post.text }}</p>
+            <div class="actions">
+              <div class="likes">
+                <fa-icon
+                  [class.liked]="post.post.liked"
+                  [icon]="faThumbsUp"
+                  (click)="onLike(post.post)"
+                ></fa-icon>
+                <p class="amount">{{ post.post.likes }}</p>
+              </div>
+              <div class="comments">
+                <fa-icon
+                  [icon]="faComment"
+                  (click)="onCommentClick(post.post)"
+                ></fa-icon>
+                <p class="amount">{{ post.post.comments.length }}</p>
+              </div>
+            </div>
+            <div class="comments" [class.hidden]="!post.post.commentsIsOpen">
+              <ul>
+                <ng-container *ngFor="let comment of post.post.comments">
+                  <li>
+                    <p class="author">{{ comment.name }}</p>
+                    <p class="comment">{{ comment.text }}</p>
+                  </li>
+                </ng-container>
+                <ng-container *ngIf="post.commentInputIsShown">
+                  <input
+                    type="text"
+                    [formControl]="comment"
+                    placeholder="Start typing..."
+                  />
+                  <p *ngIf="comment.errors?.['emptyField']" class="error">
+                    Type Something
+                  </p></ng-container
+                >
+              </ul>
+              <button (click)="onLeaveComment(post)">Leave a comment</button>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
     </ng-container>
-  </ul>
-  <ng-template #searchResultsField>
-    <ul *ngFor="let result of searchResults" class="search__field">
-      <li>
-        <p>
-          <span class="name">{{ result.name }} {{ result.surname }}</span> said:
-          <span class="post">
-            {{ result.post.text }}
-            <span class="date">({{ result.post.time | date }})</span>
-          </span>
-        </p>
-      </li>
-    </ul>
-  </ng-template>
+    <ng-container *ngSwitchCase="'searchResultsField'">
+      <ul *ngFor="let result of searchResults" class="search__field">
+        <li>
+          <p>
+            <span class="name">{{ result.name }} {{ result.surname }}</span>
+            said:
+            <span class="post">
+              {{ result.post.text }}
+              <span class="date">({{ result.post.time | date }})</span>
+            </span>
+          </p>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-container *ngSwitchCase="'noResultsFound'">
+      <p class="no__results">No Results Found</p>
+    </ng-container>
+  </div>
 </div>
 <div class="overlay" [class.hidden]="!createPostModal"></div>
 <div *ngIf="createPostModal" class="create__madal">
   <div class="content">
+    <fa-icon [icon]="faClose" (click)="onCloseModal()"></fa-icon>
     <h2>Create your post</h2>
     <div>
       <textarea cols="30" rows="10" [formControl]="newPost"></textarea>

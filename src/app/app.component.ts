@@ -10,6 +10,7 @@ import {
   faAngleLeft,
   faAngleRight,
   faSearch,
+  faClose,
 } from '@fortawesome/free-solid-svg-icons';
 import { PostService } from './services/post.service';
 import { Post, PostItem } from './services/post.interface';
@@ -28,17 +29,20 @@ export class AppComponent {
   public faAngleLeft = faAngleLeft;
   public faAngleRight = faAngleRight;
   public faSearch = faSearch;
+  public faClose = faClose;
   public postService = inject(PostService);
   private _cdr = inject(ChangeDetectorRef);
   public comment: FormControl = new FormControl();
   public findPost: FormControl = new FormControl();
   public newPost: FormControl = new FormControl();
+  public content!: string;
 
   public searchResults: Post[] = [];
   public createPostModal = false;
 
   posts!: Post[];
   public ngOnInit(): void {
+    console.log(this.content);
     this.postService.getPosts().subscribe((resp) => {
       this.posts = resp;
     });
@@ -47,7 +51,7 @@ export class AppComponent {
         debounceTime(300),
         tap((value) => {
           if (value.length < 1) {
-            this.searchResults = [];
+            this.content = '';
             this._cdr.markForCheck();
           }
         }),
@@ -58,6 +62,9 @@ export class AppComponent {
           item.post.text.toLowerCase().includes(value.toLowerCase())
         );
         this._cdr.markForCheck();
+        this.searchResults.length
+          ? (this.content = 'searchResultsField')
+          : (this.content = 'noResultsFound');
       });
   }
 
@@ -79,7 +86,7 @@ export class AppComponent {
     if (!post.commentInputIsShown) {
       post.commentInputIsShown = true;
     } else {
-      const comment = this.comment.value;
+      const comment = this.comment.value?.trim();
       if (!comment) {
         this.comment.setErrors({ emptyField: true });
       } else {
@@ -110,7 +117,7 @@ export class AppComponent {
   }
 
   public onPostButton(): void {
-    const postText = this.newPost.value;
+    const postText = this.newPost.value?.trim();
     if (!postText) {
       this.newPost.setErrors({ emptyField: true });
     } else {
@@ -132,5 +139,9 @@ export class AppComponent {
       this.newPost.reset();
       this.createPostModal = false;
     }
+  }
+
+  public onCloseModal(): void {
+    this.createPostModal = false;
   }
 }
