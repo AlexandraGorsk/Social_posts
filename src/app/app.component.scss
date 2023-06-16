@@ -35,9 +35,6 @@
     &:hover {
       background-color: #e6c100;
     }
-    &.create__post {
-      margin-top: 0;
-    }
   }
 
   .content {
@@ -145,9 +142,11 @@
           .name {
             color: #e6c100;
           }
+
           .post {
             font-size: 14px;
             font-style: italic;
+
             .date {
               opacity: 0.5;
               font-size: 11px;
@@ -156,6 +155,7 @@
         }
       }
     }
+
     .no__results {
       padding: 40px;
     }
@@ -168,60 +168,10 @@
   .hidden {
     display: none;
   }
+
   .error {
     margin: 0;
     color: red;
     font-size: 10px;
-  }
-}
-.overlay {
-  position: absolute;
-  height: 1440px;
-  z-index: 10;
-  width: 100vw;
-  margin-top: -50px;
-  background-color: black;
-  opacity: 0.6;
-}
-.create__madal {
-  top: 100px;
-  color: black;
-  position: absolute;
-  z-index: 100;
-  background-color: white;
-  border-radius: 8px;
-
-  .content {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    flex-direction: column;
-    gap: 25px;
-    position: relative;
-
-    fa-icon {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-
-      &:hover {
-        cursor: pointer;
-        scale: 1.3;
-        opacity: 0.7;
-      }
-    }
-
-    div {
-      textarea {
-        font-family: Roboto, "Helvetica Neue", sans-serif;
-        padding: 5px;
-        width: 98%;
-        border-radius: 8px;
-
-        &:focus {
-          outline: none;
-        }
-      }
-    }
   }
 }

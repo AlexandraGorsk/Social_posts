@@ -1,0 +1,12 @@
+<div class="content">
+  <fa-icon [icon]="faClose" (click)="onClose()"></fa-icon>
+  <h2>Create your post</h2>
+  <div>
+    <textarea cols="30" rows="10" [formControl]="newPost"></textarea>
+    <p *ngIf="newPost.errors?.['emptyField']" class="error">
+      Your post should't be empty
+    </p>
+  </div>
+
+  <button (click)="onPostButton()">Post</button>
+</div>

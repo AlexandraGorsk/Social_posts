@@ -5,7 +5,7 @@
       type="text"
       placeholder="Lets find posts..."
       [formControl]="findPost"
-      class="find__input"
+      class="search__input"
     />
     <fa-icon [icon]="faSearch"></fa-icon>
     <button (click)="openCreatePostModal()" class="create__post">
@@ -85,8 +85,8 @@
     </ng-container>
   </div>
 </div>
-<div class="overlay" [class.hidden]="!createPostModal"></div>
-<div *ngIf="createPostModal" class="create__madal">
+
+<!-- <div *ngIf="createPostModal" class="create__modal">
   <div class="content">
     <fa-icon [icon]="faClose" (click)="onCloseModal()"></fa-icon>
     <h2>Create your post</h2>
@@ -99,4 +99,4 @@
 
     <button (click)="onPostButton()">Post</button>
   </div>
-</div>
+</div> -->

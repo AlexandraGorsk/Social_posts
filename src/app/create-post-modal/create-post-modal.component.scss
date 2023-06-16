@@ -1,0 +1,52 @@
+.content {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  flex-direction: column;
+  gap: 25px;
+  width: 600px;
+  fa-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    &:hover {
+      cursor: pointer;
+      scale: 1.3;
+      opacity: 0.7;
+    }
+  }
+  div {
+    textarea {
+      font-family: Roboto, "Helvetica Neue", sans-serif;
+      padding: 5px;
+      width: 98%;
+      border-radius: 8px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+button {
+  background-color: #ffd600;
+  cursor: pointer;
+  height: 2.5rem;
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  color: var(--primary-black);
+  transition: all 0.3s ease-in-out;
+  color: black;
+  width: 100%;
+
+  &:hover {
+    background-color: #e6c100;
+  }
+}
+.error {
+  margin: 0;
+  color: red;
+  font-size: 10px;
+}

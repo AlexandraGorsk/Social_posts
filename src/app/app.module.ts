@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreatePostModalComponent } from './create-post-modal/create-post-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CreatePostModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -16,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ScrollingModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

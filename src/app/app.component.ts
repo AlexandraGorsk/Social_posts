@@ -12,20 +12,17 @@ import {
   faAngleLeft,
   faAngleRight,
   faSearch,
-  faClose,
 } from '@fortawesome/free-solid-svg-icons';
 import { PostService } from './services/post.service';
 import { Post, PostItem } from './services/post.interface';
 import { FormControl } from '@angular/forms';
+import { Subject, debounceTime, filter, takeUntil, tap } from 'rxjs';
 import {
-  Subject,
-  debounceTime,
-  filter,
-  of,
-  switchMap,
-  takeUntil,
-  tap,
-} from 'rxjs';
+  MatDialog,
+  MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { CreatePostModalComponent } from './create-post-modal/create-post-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -39,12 +36,11 @@ export class AppComponent implements OnInit, OnDestroy {
   public faAngleLeft = faAngleLeft;
   public faAngleRight = faAngleRight;
   public faSearch = faSearch;
-  public faClose = faClose;
+
   public postService = inject(PostService);
-  private _cdr = inject(ChangeDetectorRef);
   public comment: FormControl = new FormControl();
   public findPost: FormControl = new FormControl();
-  public newPost: FormControl = new FormControl();
+
   public content!: string;
   public destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -53,6 +49,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public posts!: Post[];
 
+  private _cdr = inject(ChangeDetectorRef);
+  private _dialog = inject(MatDialog);
   public ngOnInit(): void {
     this.postService
       .getPosts()
@@ -133,35 +131,29 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public openCreatePostModal(): void {
-    this.createPostModal = true;
+    this.openDialog();
   }
 
-  public onPostButton(): void {
-    const postText = this.newPost.value?.trim();
-    if (!postText) {
-      this.newPost.setErrors({ emptyField: true });
-    } else {
-      const date = Date.now().toString();
-      const postObj = {
-        id: this.posts.length,
-        name: 'My Name',
-        surname: 'My Surname',
-        post: {
-          text: postText,
-          likes: 0,
-          liked: false,
-          time: date,
-          comments: [],
-        },
-      };
-      this.posts = [postObj, ...this.posts];
-      this._cdr.markForCheck;
-      this.newPost.reset();
-      this.createPostModal = false;
-    }
-  }
-
-  public onCloseModal(): void {
-    this.createPostModal = false;
+  public openDialog(): void {
+    const dialogRef = this._dialog.open(CreatePostModalComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const date = Date.now().toString();
+        const postObj = {
+          id: this.posts.length,
+          name: 'My Name',
+          surname: 'My Surname',
+          post: {
+            text: result,
+            likes: 0,
+            liked: false,
+            time: date,
+            comments: [],
+          },
+        };
+        this.posts = [postObj, ...this.posts];
+        this._cdr.markForCheck();
+      }
+    });
   }
 }
