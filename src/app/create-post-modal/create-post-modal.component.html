@@ -2,11 +2,24 @@
   <fa-icon [icon]="faClose" (click)="onClose()"></fa-icon>
   <h2>Create your post</h2>
   <div>
-    <textarea cols="30" rows="10" [formControl]="newPost"></textarea>
+    <textarea
+      cols="20"
+      rows="5"
+      [formControl]="newPost"
+      placeholder="Share your thoughts here..."
+      [class.errorInput]="newPost.errors?.['emptyField']"
+    ></textarea>
     <p *ngIf="newPost.errors?.['emptyField']" class="error">
       Your post should't be empty
     </p>
   </div>
 
-  <button (click)="onPostButton()">Post</button>
+  <button
+    mat-raised-button
+    (click)="onPostButton()"
+    [disabled]="newPost.errors?.['emptyField']"
+    class="post__button"
+  >
+    Post
+  </button>
 </div>

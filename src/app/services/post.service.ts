@@ -7,6 +7,7 @@ import { Post } from './post.interface';
 })
 export class PostService {
   public getPosts(): Observable<Post[]> {
+    //get request should be provided when BE is ready
     return of([
       {
         id: 0,
@@ -88,6 +89,254 @@ export class PostService {
       },
       {
         id: 5,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 6,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 7,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 8,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 9,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 10,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 11,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 12,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 13,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 14,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 15,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 16,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+      {
+        id: 17,
+        name: 'Alexey ',
+        surname: 'Spears',
+        post: {
+          text: 'reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+          likes: 110,
+          liked: true,
+          time: '1655040067000',
+          comments: [
+            {
+              commentId: 0,
+              text: 'Thank you. It was perfect explanation',
+              name: 'Julia Roberts ',
+            },
+            { commentId: 1, text: 'one more comment', name: ' Sophia Loren' },
+          ],
+        },
+      },
+
+      {
+        id: 18,
         name: 'Alexey ',
         surname: 'Spears',
         post: {

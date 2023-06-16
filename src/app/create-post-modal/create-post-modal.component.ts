@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-create-post-modal',
   templateUrl: './create-post-modal.component.html',
   styleUrls: ['./create-post-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePostModalComponent {
   private _dialogRef = inject(MatDialogRef);
@@ -15,11 +16,11 @@ export class CreatePostModalComponent {
 
   public onPostButton() {
     const postText = this.newPost.value?.trim();
-    if (!postText) {
-      this.newPost.setErrors({ emptyField: true });
-    } else {
+    if (postText) {
       this.newPost.reset();
       this._dialogRef.close(postText);
+    } else {
+      this.newPost.setErrors({ emptyField: true });
     }
   }
 

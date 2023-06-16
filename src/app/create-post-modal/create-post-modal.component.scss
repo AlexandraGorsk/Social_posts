@@ -25,11 +25,17 @@
       &:focus {
         outline: none;
       }
+      &.errorInput {
+        border: 1px solid red;
+      }
+      &::placeholder {
+        opacity: 0.3;
+      }
     }
   }
 }
 
-button {
+button.post__button {
   background-color: #ffd600;
   cursor: pointer;
   height: 2.5rem;
@@ -44,7 +50,12 @@ button {
   &:hover {
     background-color: #e6c100;
   }
+  &:disabled {
+    background-color: gray;
+    color: white;
+  }
 }
+
 .error {
   margin: 0;
   color: red;

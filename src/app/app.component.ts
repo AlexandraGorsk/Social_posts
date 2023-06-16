@@ -16,12 +16,15 @@ import {
 import { PostService } from './services/post.service';
 import { Post, PostItem } from './services/post.interface';
 import { FormControl } from '@angular/forms';
-import { Subject, debounceTime, filter, takeUntil, tap } from 'rxjs';
 import {
-  MatDialog,
-  MatDialogRef,
-  MatDialogModule,
-} from '@angular/material/dialog';
+  Subject,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  takeUntil,
+  tap,
+} from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { CreatePostModalComponent } from './create-post-modal/create-post-modal.component';
 
 @Component({
@@ -31,6 +34,8 @@ import { CreatePostModalComponent } from './create-post-modal/create-post-modal.
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
+  private _cdr = inject(ChangeDetectorRef);
+  private _dialog = inject(MatDialog);
   public faThumbsUp = faThumbsUp;
   public faComment = faComment;
   public faAngleLeft = faAngleLeft;
@@ -49,8 +54,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public posts!: Post[];
 
-  private _cdr = inject(ChangeDetectorRef);
-  private _dialog = inject(MatDialog);
   public ngOnInit(): void {
     this.postService
       .getPosts()
@@ -61,6 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.findPost.valueChanges
       .pipe(
         debounceTime(300),
+        distinctUntilChanged(),
         tap((value) => {
           if (value.length < 1) {
             this.content = '';
@@ -92,11 +96,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public onLike(post: PostItem): void {
     post.liked = !post.liked;
-    if (post.liked) {
-      ++post.likes;
-    } else {
-      --post.likes;
-    }
+    post.liked ? ++post.likes : --post.likes;
     this._cdr.markForCheck();
   }
 
@@ -128,10 +128,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.comment.reset();
       }
     }
-  }
-
-  public openCreatePostModal(): void {
-    this.openDialog();
   }
 
   public openDialog(): void {

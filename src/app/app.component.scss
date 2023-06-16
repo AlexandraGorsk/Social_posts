@@ -18,6 +18,9 @@
     border: 1px solid white;
     color: white;
     outline: none;
+    &.errorInput {
+      border: 1px solid red;
+    }
   }
 
   button {
@@ -34,6 +37,17 @@
 
     &:hover {
       background-color: #e6c100;
+    }
+
+    &.create__post {
+      margin-top: 0;
+      width: 300px;
+      height: auto;
+    }
+
+    &:disabled {
+      background-color: gray;
+      color: white;
     }
   }
 
@@ -173,5 +187,9 @@
     margin: 0;
     color: red;
     font-size: 10px;
+  }
+
+  cdk-virtual-scroll-viewport {
+    height: 600px;
   }
 }

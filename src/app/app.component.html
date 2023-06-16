@@ -8,62 +8,71 @@
       class="search__input"
     />
     <fa-icon [icon]="faSearch"></fa-icon>
-    <button (click)="openCreatePostModal()" class="create__post">
+    <button mat-raised-button (click)="openDialog()" class="create__post">
       Create your post
     </button>
   </div>
   <div [ngSwitch]="content">
     <ng-container *ngSwitchDefault>
       <ul>
-        <!-- <cdk-virtual-scroll-viewport appendOnly itemSize="7"> -->
-        <ng-container *ngFor="let post of posts">
-          <li>
-            <h3>
-              {{ post.name }} {{ post.surname }}
-              <span class="date">{{ post.post.time | date : "fullDate" }}</span>
-            </h3>
-            <p class="post__text">{{ post.post.text }}</p>
-            <div class="actions">
-              <div class="likes">
-                <fa-icon
-                  [class.liked]="post.post.liked"
-                  [icon]="faThumbsUp"
-                  (click)="onLike(post.post)"
-                ></fa-icon>
-                <p class="amount">{{ post.post.likes }}</p>
+        <cdk-virtual-scroll-viewport appendOnly itemSize="100">
+          <ng-container *cdkVirtualFor="let post of posts">
+            <li>
+              <h3>
+                {{ post.name }} {{ post.surname }}
+                <span class="date">{{
+                  post.post.time | date : "fullDate"
+                }}</span>
+              </h3>
+              <p class="post__text">{{ post.post.text }}</p>
+              <div class="actions">
+                <div class="likes">
+                  <fa-icon
+                    [class.liked]="post.post.liked"
+                    [icon]="faThumbsUp"
+                    (click)="onLike(post.post)"
+                  ></fa-icon>
+                  <p class="amount">{{ post.post.likes }}</p>
+                </div>
+                <div class="comments">
+                  <fa-icon
+                    [icon]="faComment"
+                    (click)="onCommentClick(post.post)"
+                  ></fa-icon>
+                  <p class="amount">{{ post.post.comments.length }}</p>
+                </div>
               </div>
-              <div class="comments">
-                <fa-icon
-                  [icon]="faComment"
-                  (click)="onCommentClick(post.post)"
-                ></fa-icon>
-                <p class="amount">{{ post.post.comments.length }}</p>
-              </div>
-            </div>
-            <div class="comments" [class.hidden]="!post.post.commentsIsOpen">
-              <ul>
-                <ng-container *ngFor="let comment of post.post.comments">
-                  <li>
-                    <p class="author">{{ comment.name }}</p>
-                    <p class="comment">{{ comment.text }}</p>
-                  </li>
-                </ng-container>
-                <ng-container *ngIf="post.commentInputIsShown">
-                  <input
-                    type="text"
-                    [formControl]="comment"
-                    placeholder="Start typing..."
-                  />
-                  <p *ngIf="comment.errors?.['emptyField']" class="error">
-                    Type Something
-                  </p></ng-container
+              <div class="comments" [class.hidden]="!post.post.commentsIsOpen">
+                <ul>
+                  <ng-container *ngFor="let comment of post.post.comments">
+                    <li>
+                      <p class="author">{{ comment.name }}</p>
+                      <p class="comment">{{ comment.text }}</p>
+                    </li>
+                  </ng-container>
+                  <ng-container *ngIf="post.commentInputIsShown">
+                    <input
+                      type="text"
+                      [formControl]="comment"
+                      [class.errorInput]="comment.errors?.['emptyField']"
+                      placeholder="Start typing..."
+                    />
+                    <p *ngIf="comment.errors?.['emptyField']" class="error">
+                      Type Something
+                    </p></ng-container
+                  >
+                </ul>
+                <button
+                  mat-raised-button
+                  (click)="onLeaveComment(post)"
+                  [disabled]="comment.errors?.['emptyField']"
                 >
-              </ul>
-              <button (click)="onLeaveComment(post)">Leave a comment</button>
-            </div>
-          </li>
-        </ng-container>
-        <!-- </cdk-virtual-scroll-viewport> -->
+                  Leave a comment
+                </button>
+              </div>
+            </li>
+          </ng-container>
+        </cdk-virtual-scroll-viewport>
       </ul>
     </ng-container>
     <ng-container *ngSwitchCase="'searchResultsField'">
@@ -85,18 +94,3 @@
     </ng-container>
   </div>
 </div>
-
-<!-- <div *ngIf="createPostModal" class="create__modal">
-  <div class="content">
-    <fa-icon [icon]="faClose" (click)="onCloseModal()"></fa-icon>
-    <h2>Create your post</h2>
-    <div>
-      <textarea cols="30" rows="10" [formControl]="newPost"></textarea>
-      <p *ngIf="newPost.errors?.['emptyField']" class="error">
-        Your post should't be empty
-      </p>
-    </div>
-
-    <button (click)="onPostButton()">Post</button>
-  </div>
-</div> -->
